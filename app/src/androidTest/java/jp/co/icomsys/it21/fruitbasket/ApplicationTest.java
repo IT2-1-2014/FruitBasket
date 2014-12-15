@@ -1,13 +1,30 @@
 package jp.co.icomsys.it21.fruitbasket;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import junit.framework.Assert;
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-    public ApplicationTest() {
-        super(Application.class);
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+
+@Config(emulateSdk = 18)
+@RunWith(RobolectricTestRunner.class)
+public class ApplicationTest {
+
+    @Before
+    public void setup() {
+
+    }
+
+    @After
+    public void teardrop() {
+
+    }
+
+    @Test
+    public void testSample() {
+        Assert.assertEquals("a","0");
     }
 }
