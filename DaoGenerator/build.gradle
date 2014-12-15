@@ -1,0 +1,91 @@
+import de.greenrobot.daogenerator.DaoGenerator;
+import de.greenrobot.daogenerator.Entity
+import de.greenrobot.daogenerator.Property;
+import de.greenrobot.daogenerator.Schema;
+
+// DB Version
+def dbVersion = 1
+// Dao Package Name
+def daoOutputPackage = "jp.co.icomsys.it21.fruitbasket.dao"
+// Output Directory Path
+def daoOutputDirPath = "app/src/main/java-gen"
+
+task daoGeneratorClean(type: Delete) {
+    description 'DAOクラスの自動生成の出力先ディレクトリを削除します'
+
+    println 'in daoGeneratorClean task'
+    delete "../${daoOutputDirPath}"
+    println 'out daoGeneratorClean task'
+}
+
+task daoGenerator {
+    description 'DAOクラスの生成をします'
+
+    println 'in daoGenerator task'
+    def last = doLast {
+        /**
+         *  ここでテーブルの定義を行い、
+         *  build.gradle# run
+         *  でコードを ${daoOutputDirPath}
+         *  配下に自動生成する。
+         */
+
+        Schema schema = new Schema(dbVersion, daoOutputPackage);
+
+        Entity bookTitles = schema.addEntity("BookTitles");
+        bookTitles.addIdProperty();
+        bookTitles.addStringProperty("title");
+        bookTitles.addStringProperty("titleKana");
+
+        Entity authors = schema.addEntity("Authors");
+        authors.addIdProperty();
+        authors.addStringProperty("author");
+        authors.addStringProperty("authorKana");
+
+        Entity publishers = schema.addEntity("Publishers");
+        publishers.addIdProperty();
+        publishers.addStringProperty("publisher");
+        publishers.addStringProperty("publisherKana");
+
+        Entity regsisteredBooks = schema.addEntity("RegisteredBooks");
+        regsisteredBooks.addIdProperty();
+
+        Property bookTitleId = regsisteredBooks.addLongProperty("bookTitleID").getProperty();
+        regsisteredBooks.addToOne(bookTitles, bookTitleId);
+
+        Property authId = regsisteredBooks.addLongProperty("authorID").getProperty();
+        regsisteredBooks.addToOne(authors, authId);
+
+        Property publisherId = regsisteredBooks.addLongProperty("publisherID").getProperty();
+        regsisteredBooks.addToOne(publishers, publisherId);
+
+        regsisteredBooks.addStringProperty("modTitle");
+        regsisteredBooks.addStringProperty("modTitleKana");
+        regsisteredBooks.addStringProperty("modAuthor");
+        regsisteredBooks.addStringProperty("modAuthorKana");
+        regsisteredBooks.addStringProperty("modPublisher");
+        regsisteredBooks.addStringProperty("modPublisherKana");
+
+
+        try {
+            // ディレクトリ作成
+            File file = new File(daoOutputDirPath);
+            if ( !file.exists() ) file.mkdirs();
+
+            // コード生成
+            new DaoGenerator().generateAll(schema, daoOutputDirPath);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+    last
+
+    println 'out daoGenerator task'
+}
+
+task run {
+    tasks.daoGeneratorClean.execute()
+    tasks.daoGenerator.execute()
+}
