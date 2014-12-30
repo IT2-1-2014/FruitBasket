@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DaoGenerator/DaoGenerator.iml" filepath="$PROJECT_DIR$/DaoGenerator/DaoGenerator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/FruitBasket.iml" filepath="$PROJECT_DIR$/FruitBasket.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FruitBasket_ignorelist.iml" filepath="$PROJECT_DIR$/FruitBasket_ignorelist.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
