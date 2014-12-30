@@ -8,6 +8,7 @@ local.properties
 .classpath
 .project
 proguard/
+proguard-rules.pro
 *.iml
 *.ipr
 *.iws
