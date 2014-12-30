@@ -19,6 +19,7 @@ task daoGenerator {
     description 'DAOクラスの生成をします'
 
     println 'in daoGenerator task'
+    
     def last = doLast {
         /**
          *  ここでテーブルの定義を行い、

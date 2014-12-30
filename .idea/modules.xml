@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DaoGenerator/DaoGenerator.iml" filepath="$PROJECT_DIR$/DaoGenerator/DaoGenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/FruitBasket.iml" filepath="$PROJECT_DIR$/FruitBasket.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FruitBasket_explain.iml" filepath="$PROJECT_DIR$/FruitBasket_explain.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
