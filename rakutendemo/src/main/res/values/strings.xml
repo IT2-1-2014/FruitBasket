@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">rakutenDemo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="webSerch_input_title">タイトル</string>
+    <string name="webSerch_input_author">著者名</string>
+    <string name="webSerch_input_publisher">出版社</string>
+    <string name="webSerch_input_isbn">ISBN</string>
+    <string name="webSerch_exec_button">検索</string>
+
+    <string name="webSerch_conn_url_head">https://app.rakuten.co.jp/services/api/BooksBook/Search/20130522?format=xml&amp;</string>
+    <string name="webSerch_conn_url_tail">&amp;applicationId=1066904167385245120</string>
+
+    <string name="webSerch_queryBuild_ContentWrapper">"</string>
+    <string name="webSerch_queryBuild_Spacer"> </string>
+
+</resources>
