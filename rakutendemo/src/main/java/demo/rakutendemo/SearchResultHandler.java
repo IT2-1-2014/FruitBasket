@@ -6,9 +6,10 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by WI on 2015/01/04.
- */
+// 2015/01/04 WI
+// 楽天BOOKS との通信結果を解析する SAX Handler
+// 本番の FB で利用する場合は、通信先のサービスによって Handler クラスを
+// 分けて実装することになるかなぁと妄想中
 public class SearchResultHandler extends DefaultHandler {
 
     private List<SearchResultItem> parseResult;
@@ -47,6 +48,7 @@ public class SearchResultHandler extends DefaultHandler {
             case "publisherName":
             case "publisherNameKana":
             case "isbn":
+            case "itemCaption":
             case "salesDate":
             case "itemPrice":
             case "smallImageUrl":
@@ -95,6 +97,9 @@ public class SearchResultHandler extends DefaultHandler {
                 case "isbn":
                     this.parsingItem.isbn = chValue;
                     break;
+                case "itemCaption":
+                    this.parsingItem.description = chValue;
+                    break;
                 case "salesDate":
                     this.parsingItem.hatsubaibi = chValue;
                     break;
@@ -134,6 +139,7 @@ public class SearchResultHandler extends DefaultHandler {
             case "publisherName":
             case "publisherNameKana":
             case "isbn":
+            case "itemCaption":
             case "salesDate":
             case "itemPrice":
             case "smallImageUrl":

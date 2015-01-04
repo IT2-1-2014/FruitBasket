@@ -27,6 +27,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+// 2014/01/04 WI
+// 楽天BOOK との通信のデモ用画面
+// このクラス中に思いっきり通信処理が含まれているが、
+// 本番の FB では通信処理は他に Service クラスを作って、
+// 通信先のサービスによって実装を分けたほうが、拡張性が上がりそう。
+
 public class RakutenDemoActivity extends ActionBarActivity {
     // 検索条件の入力用 EditText
     private EditText titleInput, creatorInput, publisherInput, isbnInput;
