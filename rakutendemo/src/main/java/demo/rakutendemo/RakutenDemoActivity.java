@@ -3,8 +3,6 @@ package demo.rakutendemo;
 import java.util.List;
 
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
@@ -22,6 +20,12 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 public class RakutenDemoActivity extends ActionBarActivity {
     // 検索条件の入力用 EditText
@@ -103,17 +107,14 @@ public class RakutenDemoActivity extends ActionBarActivity {
             try {
                 if (!"".equals(title)) {
                     queryBuilder.append("title=" +
-//                            URLEncoder.encode(doubleQuote + title + doubleQuote, "UTF-8") + "AND");
                             URLEncoder.encode(title, "UTF-8") + "&");
                 }
                 if (!"".equals(creator)) {
                     queryBuilder.append("author=" +
-//                            URLEncoder.encode(doubleQuote + creator + doubleQuote, "UTF-8") + "AND");
                             URLEncoder.encode(creator, "UTF-8") + "&");
                 }
                 if (!"".equals(publisher)) {
                     queryBuilder.append("publisherName=" +
-//                            URLEncoder.encode(doubleQuote + publisher + doubleQuote, "UTF-8") + "AND");
                             URLEncoder.encode(publisher, "UTF-8") + "&");
                 }
 
@@ -153,49 +154,47 @@ public class RakutenDemoActivity extends ActionBarActivity {
 
         @Override
         // AsyncTask が、非同期処理中にメインプロセスのバックグラウンドで行う処理を記述するメソッド
-        // 本来は、このメソッド中に、楽天APIとの通信処理を記述すればいい
         protected List<SearchResultItem> doInBackground(Void... voids) {
             String serviceURLHead = getString(R.string.webSerch_conn_url_head),
                 serviceURLTail = getString(R.string.webSerch_conn_url_tail);
 
-
+            List<SearchResultItem> searchResult = null;
             try {
                 Object content = (new URL(serviceURLHead + searchQuery + serviceURLTail)).getContent();
                 if (content instanceof InputStream) {
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader((InputStream)content));
-                    String bf = null;
 
-                    while ((bf = reader.readLine()) != null) {
-                        System.out.println(bf);
+                    SearchResultHandler handler = new SearchResultHandler();
+
+                    try {
+                        // SAX により通信結果を解析し、検索結果リストを取得
+                        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+                        parser.parse((InputStream)content, handler);
+                        searchResult = handler.getParseResult();
+                    } catch (ParserConfigurationException e) {
+                        e.printStackTrace();
+                    } catch (SAXException e) {
+                        e.printStackTrace();
                     }
-
                 }
+
             } catch (IOException e) {
-                Toast.makeText(RakutenDemoActivity.this,
-                        "Error: Connecting to the Service Failed", Toast.LENGTH_LONG);
+                e.printStackTrace();
             }
 
             // TODO 受け取った検索結果から、リストにアイテムを格納
-//            try {
-//                Object content = (InputStream)((new URL(serviceURL + searchQuery)).getContent());
-//                if (content instanceof InputStream) {
-//                    NDLSearchResultParser ndlParser = new NDLSearchResultParser();
-//
-//                    try {
-//                        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-//                        parser.parse((InputStream)content, ndlParser);
-//                        searchResult = ndlParser.getParseResult();
-//                    } catch (ParserConfigurationException e) {
-//                    } catch (SAXException e) {
-//                    }
-//                }
-//
-//            } catch (IOException e) {
-//            }
-//
-//            return searchResult;
-            return null;
+
+            // 検索結果読み込みの確認出力（リスト表示できるようになったら消す）
+            if (searchResult != null) {
+                for (SearchResultItem item : searchResult) {
+                    System.out.println("----------------ReadItem----------------");
+                    System.out.println("title:" + item.title);
+                    System.out.println("author:" + item.author);
+                    System.out.println("publisher:" + item.publisherName);
+                    System.out.println("isbn:" + item.isbn);
+                }
+            }
+
+            return searchResult;
        }
 
         @Override

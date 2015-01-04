@@ -17,4 +17,14 @@
     <string name="webSerch_queryBuild_ContentWrapper">"</string>
     <string name="webSerch_queryBuild_Spacer"> </string>
 
+    <string name="rakutenTag_title">title</string>
+    <string name="rakutenTag_author">author</string>
+    <string name="rakutenTag_publisher">publisherName</string>
+    <string name="rakutenTag_isbn">isbn</string>
+    <string name="rakutenTag_Hatsubaibi">salesDate</string>
+    <string name="rakutenTag_price">itemPrice</string>
+    <string name="rakutenTag_imageURL_S">smallImageUrl</string>
+    <string name="rakutenTag_imageURL_M">mediumImageUrl</string>
+    <string name="rakutenTag_imageURL_L">largeImageUrl</string>
+
 </resources>
