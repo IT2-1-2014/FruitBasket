@@ -4,7 +4,6 @@
     <!-- common -->
     <string name="app_name">FruitBasket</string>
     <string name="code_name">Melon</string>
-
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -12,5 +11,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_book_registration">BookRegistrationActivity</string>
+    <!-- 登録画面 BookRegistrationActivity -> bkrgact -->
+    <string name="top_btn_book_reg">登録・更新</string>
 
 </resources>
