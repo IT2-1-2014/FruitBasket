@@ -14,5 +14,7 @@
     <string name="title_activity_book_registration">BookRegistrationActivity</string>
     <!-- 登録画面 BookRegistrationActivity -> bkrgact -->
     <string name="top_btn_book_reg">登録・更新</string>
+    
+    <string name="title_placeholder">図書タイトル</string>
 
 </resources>
