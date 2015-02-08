@@ -18,7 +18,8 @@
         </activity>
         <activity
             android:name=".BookRegistrationActivity"
-            android:label="@string/title_activity_book_registration" >
+            android:label="@string/title_activity_book_registration" 
+            >
         </activity>
     </application>
 

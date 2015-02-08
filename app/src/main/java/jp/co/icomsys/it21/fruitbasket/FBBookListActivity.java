@@ -44,6 +44,10 @@ public class FBBookListActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        
+        ActionBar mActionBar = getActionBar();
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        
     }
 
     @Override
