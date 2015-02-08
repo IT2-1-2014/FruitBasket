@@ -16,40 +16,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:id="@+id/button_return"
-                    android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:text="登録"
-                    android:id="@+id/screen_title_entry"
-                    android:autoText="false"
-                    android:elegantTextHeight="false"
-                    android:gravity="center"
-                    android:textAlignment="gravity" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:longClickable="false"
-                    android:layout_weight="0.48" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/button_decision"
-                    android:src="@drawable/abc_btn_check_to_on_mtrl_015" />
-
-            </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -67,26 +33,31 @@
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent">
                 
-                <include layout="@layout/edit_single_item"
+                <include layout="@layout/viewgroup_single_item_input"
                     android:layout_width="match_parent"
                     android:id="@+id/input_title"
                     android:layout_height="32dp" />
-                <include layout="@layout/edit_single_item"
-                    android:id="@+id/input_title_kana" />
-                
+
+                <include
+                    layout="@layout/viewgroup_single_item_input"
+                    android:id="@+id/input_author_kana"
+                    android:layout_height="32dp"
+                    android:layout_width="match_parent" />
+
             </LinearLayout>
 
         </LinearLayout>
             
-            <include layout="@layout/edit_single_item"
+            <include layout="@layout/viewgroup_single_item_input"
                 android:id="@+id/input_author"
-                android:layout_height="32dp" />
+                android:layout_height="32dp"
+                android:layout_width="match_parent" />
 
-            <include
-                layout="@layout/edit_single_item"
-                android:id="@+id/input_author_kana"
-                android:layout_height="32dp" />
-            
+            <include layout="@layout/viewgroup_single_item_input"
+                android:id="@+id/input_title_kana"
+                android:layout_height="32dp"
+                android:layout_width="match_parent" />
+
         </LinearLayout>
 
     </FrameLayout>
