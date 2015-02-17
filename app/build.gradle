@@ -7,8 +7,8 @@ android {
 
     defaultConfig {
         applicationId "jp.co.icomsys.it21.fruitbasket"
-        minSdkVersion 19
-        targetSdkVersion 21
+        minSdkVersion 17
+        targetSdkVersion 19
         versionCode 1
         versionName "1.0"
     }
@@ -31,7 +31,6 @@ android {
 dependencies {
     androidTestCompile 'junit:junit:4.12'
     androidTestCompile 'org.robolectric:robolectric:2.4'
-
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'de.greenrobot:greendao:1.3.7'
