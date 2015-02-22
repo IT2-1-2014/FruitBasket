@@ -39,7 +39,7 @@ dependencies {
 
 robolectric {
     // configure the set of classes for JUnit tests
-    include '**/*Test.class'
+    include '**/*TestActivity.class'
     exclude '**/espresso/**/*.class'
 
     // configure max heap size of the test JVM
