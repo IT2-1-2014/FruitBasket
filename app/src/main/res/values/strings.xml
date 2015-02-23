@@ -11,7 +11,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_book_registration">BookRegistrationActivity</string>
+    <string name="title_activity_book_registration">図書登録画面</string>
     <!-- 登録画面 BookRegistrationActivity -> bkrgact -->
     <string name="top_btn_book_reg">登録・更新</string>
     
