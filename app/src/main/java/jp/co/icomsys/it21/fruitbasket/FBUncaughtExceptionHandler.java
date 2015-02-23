@@ -2,6 +2,7 @@ package jp.co.icomsys.it21.fruitbasket;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,14 +15,24 @@ import java.io.PrintWriter;
  */
 public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
 
+    private static String LOG_TAG = null;
+
     private static Context sContext = null;
 
     private static File BUG_REPORT_FILE = null;
 
+    private static String PACKAGE_NAME = null;
+
+    private final static String BUG_REPORT_FILE_NAME = "fbbugreport.txt";
+
     static {
+        LOG_TAG = FBUncaughtExceptionHandler.class.getSimpleName();
+        PACKAGE_NAME = FBUncaughtExceptionHandler.class.getPackage().getName();
         String sdcard = Environment.getExternalStorageDirectory().getPath();
-        String path = sdcard + File.separator + "bug.txt";
+        String path = sdcard + File.separator + PACKAGE_NAME + File.separator + BUG_REPORT_FILE_NAME;
         BUG_REPORT_FILE = new File(path);
+
+        Log.v(LOG_TAG, "FilePath: " + path);
     }
 
     public FBUncaughtExceptionHandler(Context context) {
@@ -34,6 +45,7 @@ public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
             saveBugReport(ex);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            Log.e(LOG_TAG, "ログ出力で例外", e);
         }
     }
 
