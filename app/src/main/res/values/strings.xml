@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- common -->
+    <!-- 共通 -->
     <string name="app_name">FruitBasket</string>
     <string name="code_name">Melon</string>
+
+    <!-- 一覧画面 -->
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -11,10 +13,28 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_book_registration">図書登録画面</string>
-    <!-- 登録画面 BookRegistrationActivity -> bkrgact -->
+
+
+    <!-- 登録画面 -->
+    <string name="activity_name_book_registration">図書登録画面</string>
     <string name="top_btn_book_reg">登録・更新</string>
-    
     <string name="title_placeholder">図書タイトル</string>
+
+    <!-- Web検索画面のコンポーネントに表示する文字列 -->
+    <string name="text_init_value_title">タイトル</string>
+    <string name="text_init_value_author">著者名</string>
+    <string name="text_init_value_publisher">出版社名</string>
+    <string name="text_init_value_isbn">ISBN</string>
+    <string name="button_name_search">検索</string>
+    <string name="activity_name_web_search">Web検索画面</string>
+    <string name="title_activity_web_search">WebSearchActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+    <!-- 楽天BOOKS API との通信で用いる文字列 -->
+    <string name="webSerch_rakuten_conn_url_head">https://app.rakuten.co.jp/services/api/BooksBook/Search/20130522?format=xml&amp;</string>
+    <string name="webSerch_rakuten_conn_url_tail">&amp;applicationId=1066904167385245120</string>
+
+    <string name="webSerch_rakuten_queryBuild_ContentWrapper">"</string>
+    <string name="webSerch_rakuten_queryBuild_Spacer"> </string>
 
 </resources>

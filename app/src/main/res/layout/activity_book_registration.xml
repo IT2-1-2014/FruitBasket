@@ -41,8 +41,8 @@
                     <jp.co.icomsys.it21.fruitbasket.ui.AutoCompleteWithClearButtonTextView
                         android:id="@+id/textView_title"
                         android:layout_width="fill_parent"
-                        android:layout_height="32dp" 
-                        fb:hint="test"/>
+                        android:layout_height="32dp"
+                        fb:hint="test" />
 
                     <jp.co.icomsys.it21.fruitbasket.ui.AutoCompleteWithClearButtonTextView
                         android:id="@+id/textView_title_kana"

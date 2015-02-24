@@ -22,7 +22,7 @@ import jp.co.icomsys.it21.fruitbasket.dao.PublishersDao;
 
 /**
  * 自動生成Daoクラスのユニットテスト
- *
+ * <p/>
  * Created by masaharu on 14/12/17.
  */
 
@@ -36,19 +36,17 @@ public class GeneratedDaoTest {
 
     @Before
     public void setup() {
-        activity = Robolectric.buildActivity(FBBookListActivity.class).create().get();
+        activity = Robolectric.buildActivity(BookListActivity.class).create().get();
         helper = new DaoMaster.DevOpenHelper(activity, "fruitbasket-db", null);
         db = helper.getWritableDatabase();
     }
 
     @After
     public void teardrop() {
-        if( db!=null ) db.close();
+        if (db != null) db.close();
     }
 
-    
-    
-    
+
     @Test
     public void getRecordCountFromEmptyTableTest() {
         DaoSession session = getSession();
@@ -56,19 +54,19 @@ public class GeneratedDaoTest {
         // BookTitlesDao
         BookTitlesDao bookTitlesDao = session.getBookTitlesDao();
         Assert.assertEquals(0, bookTitlesDao.count());
-        
+
         // AuthorsDao
         AuthorsDao authorsDao = session.getAuthorsDao();
         Assert.assertEquals(0, authorsDao.count());
-        
+
         // PublishersDao
         PublishersDao publishersDao = session.getPublishersDao();
         Assert.assertEquals(0, publishersDao.count());
-        
+
         // RegisteredBooksDao
-        
+
     }
-    
+
     @Test
     public void insertTest() {
         DaoSession session = getSession();
@@ -78,12 +76,12 @@ public class GeneratedDaoTest {
         booktitle.setTitle("ABC");
         booktitle.setTitleKana("えいびーしー");
         titlesDao.insert(booktitle);
-        
+
         Assert.assertEquals(1, titlesDao.count());
-        
-        
-    } 
-    
+
+
+    }
+
 
     private DaoSession getSession() {
         return new DaoMaster(db).newSession();
