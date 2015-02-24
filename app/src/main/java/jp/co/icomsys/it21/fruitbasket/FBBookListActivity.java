@@ -5,18 +5,14 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 
 public class FBBookListActivity extends Activity
@@ -45,6 +41,10 @@ public class FBBookListActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        // Web検索画面のデバッグ用に、intent いよる画面遷移を挿入
+        // TODO デバッグの方法が確立したらこのintentを削除
+        this.startActivity(new Intent(this, WebSearchActivity.class));
     }
 
     @Override

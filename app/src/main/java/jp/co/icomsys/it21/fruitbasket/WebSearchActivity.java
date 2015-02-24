@@ -1,7 +1,7 @@
 package jp.co.icomsys.it21.fruitbasket;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class WebSearchActivity extends ActionBarActivity {
+public class WebSearchActivity extends Activity {
 
     // 各条件入力コンポーネント
     private EditText titleInput;
@@ -32,9 +31,6 @@ public class WebSearchActivity extends ActionBarActivity {
 
     // 検索ボタン
     private Button searchButton;
-
-    // 図書検索結果のlist
-    private List<BookSearchItem> resultList;
 
     // 図書検索結果のlistview
     private ListView resultListView;
@@ -52,9 +48,8 @@ public class WebSearchActivity extends ActionBarActivity {
         this.publisherInput = (EditText)findViewById(R.id.inputPublisher);
         this.isbnInput = (EditText)findViewById(R.id.inputIsbn);
 
-        this.resultList = new ArrayList<BookSearchItem>();
         this.resultListView = (ListView) findViewById(R.id.webSearchBookList);
-        this.resultAdapter = new SearchResultAdapter(this, 0, this.resultList);
+        this.resultAdapter = new SearchResultAdapter(this, 0, new ArrayList<BookSearchItem>());
         this.resultListView.setAdapter(this.resultAdapter);
 
         this.searchButton = (Button)findViewById(R.id.webSearchButton);
@@ -90,8 +85,10 @@ public class WebSearchActivity extends ActionBarActivity {
     }
 
     public void setSearchResultList(List<BookSearchItem> results) {
-        this.resultList = results;
-        this.resultAdapter.notifyDataSetChanged();
+        this.resultAdapter.clear();
+        for (BookSearchItem b : results) {
+            this.resultAdapter.add(b);
+        }
     }
 
     public String getTitleInputStr() {
