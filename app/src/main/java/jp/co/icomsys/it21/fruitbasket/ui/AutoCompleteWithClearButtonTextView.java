@@ -42,7 +42,7 @@ public class AutoCompleteWithClearButtonTextView extends LinearLayout implements
         AutoCompleteWithClearButtonTextView a = (AutoCompleteWithClearButtonTextView) li.inflate(R.layout.viewgroup_single_item_input, this);
         mTextView = (AutoCompleteTextView) a.findViewById(R.id.textView);
         mClearButton = (ImageButton) a.findViewById(R.id.clearButton);
-        
+
         //this.removeAllViews();
         //this.addView(mTextView);
         //this.addView(mClearButton);

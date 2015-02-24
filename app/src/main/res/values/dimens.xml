@@ -10,8 +10,8 @@
     <!-- 登録画面　図書イメージサイズ -->
     <dimen name="image_width_book">64dp</dimen>
     <dimen name="image_height_book">64dp</dimen>
-    
+
     <!-- 入力項目サイズ -->
     <dimen name="text_height">32dp</dimen>
-    
+
 </resources>
