@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fb="http://schemas.android.com/apt/res/fb"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:longClickable="false"-->
-    <!--android:orientation="horizontal">-->
-
+    <!-- TODO: AutoCompleteTextViewで編集させるならEditViewを使うことを推奨されている。今後切り替え -->
     <AutoCompleteTextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight ="1"
-        android:editable="true" 
-        />
+        android:layout_weight="1"
+        android:editable="true" />
 
     <ImageButton
         android:id="@+id/clearButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:contentDescription="@string/clearBtnContentDescription"
         android:src="@drawable/abc_ic_clear_mtrl_alpha" />
-    <!--</LinearLayout>-->
 
 </merge>
