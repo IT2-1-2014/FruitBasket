@@ -35,7 +35,8 @@ public class BookRegistrationActivity extends ActionBarActivity
         Context context = getApplicationContext();
         Thread.setDefaultUncaughtExceptionHandler(new FBUncaughtExceptionHandler(context));
 
-        setContentView(R.layout.activity_book_registration);
+        //setContentView(R.layout.activity_book_registration);
+        setContentView(R.layout.activity_fbbook_registr_layout);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
