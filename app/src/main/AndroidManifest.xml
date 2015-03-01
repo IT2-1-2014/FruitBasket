@@ -36,6 +36,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".BookListsActivity"
+            android:label="@string/activity_name_book_list">
+        </activity>
+
     </application>
 
 </manifest>
