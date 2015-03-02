@@ -1,20 +1,22 @@
 package jp.co.icomsys.it21.fruitbasket;
 
-import android.app.ActionBar;
 import android.app.Activity;
+
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v4.widget.DrawerLayout;
 
 
-public class BookListActivity extends Activity
+public class FBBookListActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -30,14 +32,11 @@ public class BookListActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Context context = getApplicationContext();
-        Thread.setDefaultUncaughtExceptionHandler(new FBUncaughtExceptionHandler(context));
-
         setContentView(R.layout.activity_fbbook_list);
 
-//        mNavigationDrawerFragment = (NavigationDrawerFragment)
-//                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+
         mTitle = getTitle();
 
         // Set up the drawer.
@@ -45,9 +44,9 @@ public class BookListActivity extends Activity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        ActionBar mActionBar = getActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-
+        // Web検索画面のデバッグ用に、intent いよる画面遷移を挿入
+        // TODO デバッグの方法が確立したらこのintentを削除
+        this.startActivity(new Intent(this, WebSearchActivity.class));
     }
 
     @Override
@@ -116,9 +115,6 @@ public class BookListActivity extends Activity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public PlaceholderFragment() {
-        }
-
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -131,9 +127,12 @@ public class BookListActivity extends Activity
             return fragment;
         }
 
+        public PlaceholderFragment() {
+        }
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
+                Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_fbbook_list, container, false);
             return rootView;
         }
@@ -141,7 +140,7 @@ public class BookListActivity extends Activity
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((BookListActivity) activity).onSectionAttached(
+            ((FBBookListActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
