@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Platform.AppCompat.Light" >
         <activity
             android:name=".FBBookListActivity"
             android:label="@string/app_name"
@@ -18,10 +18,17 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".WebSearchActivity"
-            android:label="@string/app_name" >
-        </activity>
+        <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+            package="jp.co.icomsys.it21.fruitbasket">
+
+            <application>
+                <activity android:name="jp.co.icomsys.it21.fruitbasket.WebSearchActivity"
+                    android:label="@string/title_activity_web_search"
+                    >
+                </activity>
+            </application>
+
+        </manifest>
 
     </application>
 
@@ -29,3 +36,4 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
+

@@ -22,11 +22,14 @@
     <string name="title_activity_web_search">WebSearchActivity</string>
     <string name="hello_world">Hello world!</string>
 
+    <string name="radio_label_sort">ソート</string>
+    <string name="radio_label_filter">フィルタ</string>
+
     <!-- 楽天BOOKS API との通信で用いる文字列 -->
     <string name="webSerch_rakuten_conn_url_head">https://app.rakuten.co.jp/services/api/BooksBook/Search/20130522?format=xml&amp;</string>
     <string name="webSerch_rakuten_conn_url_tail">&amp;applicationId=1066904167385245120</string>
-
     <string name="webSerch_rakuten_queryBuild_ContentWrapper">"</string>
-    <string name="webSerch_rakuten_queryBuild_Spacer"> </string>
+    <string name="webSerch_rakuten_queryBuild_Spacer"></string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
