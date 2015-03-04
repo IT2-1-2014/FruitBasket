@@ -1,0 +1,11 @@
+<resources>
+    <declare-styleable name="AutoCompleteWithClearButtonTextView">
+        <attr name="hint" format="string" />
+        <!-- 以下、自動生成もの削除可能 -->
+        <attr name="exampleString" format="string" />
+        <attr name="exampleDimension" format="dimension" />
+        <attr name="exampleColor" format="color" />
+        <attr name="exampleDrawable" format="color|reference" />
+    </declare-styleable>
+    <string name="clearBtnContentDescription">入力内容をクリア</string>
+</resources>

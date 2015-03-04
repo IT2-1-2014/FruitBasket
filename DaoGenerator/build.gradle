@@ -2,6 +2,7 @@ import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity
 import de.greenrobot.daogenerator.Property;
 import de.greenrobot.daogenerator.Schema;
+
 // DB Version
 def dbVersion = 1
 // Dao Package Name
@@ -29,17 +30,17 @@ task daoGenerator {
         Schema schema = new Schema(dbVersion, daoOutputPackage);
 
         Entity bookTitles = schema.addEntity("BookTitles");
-        bookTitles.addIdProperty();
-        bookTitles.addStringProperty("title");
-        bookTitles.addStringProperty("titleKana");
+        bookTitles.addIdProperty().notNull();
+        bookTitles.addStringProperty("title").notNull();
+        bookTitles.addStringProperty("titleKana").notNull();
 
         Entity authors = schema.addEntity("Authors");
-        authors.addIdProperty();
+        authors.addIdProperty().notNull();
         authors.addStringProperty("author");
         authors.addStringProperty("authorKana");
 
         Entity publishers = schema.addEntity("Publishers");
-        publishers.addIdProperty();
+        publishers.addIdProperty().notNull();
         publishers.addStringProperty("publisher");
         publishers.addStringProperty("publisherKana");
 
