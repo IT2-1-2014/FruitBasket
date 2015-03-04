@@ -5,8 +5,8 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -15,15 +15,12 @@ import java.io.PrintWriter;
  */
 public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
 
-    private static String LOG_TAG = null;
-
-    private static Context sContext = null;
-
-    private static File BUG_REPORT_FILE = null;
-
-    private static String PACKAGE_NAME = null;
-
     private final static String BUG_REPORT_FILE_NAME = "fbbugreport.txt";
+
+    private static String LOG_TAG = null;
+    private static Context sContext = null;
+    private static File BUG_REPORT_FILE = null;
+    private static String PACKAGE_NAME = null;
 
     static {
         LOG_TAG = FBUncaughtExceptionHandler.class.getSimpleName();
@@ -43,7 +40,7 @@ public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
     public void uncaughtException(Thread thread, Throwable ex) {
         try {
             saveBugReport(ex);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             Log.e(LOG_TAG, "ログ出力で例外", e);
         }
@@ -52,9 +49,13 @@ public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
     /*
      *
      */
-    private void saveBugReport(Throwable th) throws FileNotFoundException {
+    private void saveBugReport(Throwable th) throws IOException {
         StackTraceElement[] stacks = th.getStackTrace();
         File file = BUG_REPORT_FILE;
+        if (!file.exists()) {
+            file.mkdirs();
+            file.createNewFile();
+        }
         PrintWriter pw;
         pw = new PrintWriter(new FileOutputStream(file));
 
