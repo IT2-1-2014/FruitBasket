@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jp.co.icomsys.it21.fruitbasket" >
+    package="jp.co.icomsys.it21.fruitbasket">
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".FBBookListActivity"
-            android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:theme="@style/Theme.AppCompat">
 
+    <activity
+            android:name=".BookListActivity"
+            android:label="@string/activity_name_book_list">
+        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".BookRegistrationActivity"
+            android:label="@string/activity_name_book_registration">
+        </activity>
+
+        <activity
+            android:name=".WebSearchActivity"
+            android:label="@string/activity_name_web_search">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
     </application>
 
 </manifest>
