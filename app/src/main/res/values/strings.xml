@@ -21,6 +21,22 @@
     <string name="activity_name_book_registration">図書登録画面</string>
     <string name="top_btn_book_reg">登録・更新</string>
     <string name="title_placeholder">図書タイトル</string>
+    <string name="title_yomi_placeholder">図書タイトルふりがな</string>
+    <string name="author_placeholder">著者名</string>
+    <string name="author_yomi_placeholder">著者名ルふりがな</string>
+    <string name="publisher_placeholder">出版社名</string>
+    <string name="publisher_yomi_placeholder">出版社名ルふりがな</string>
+    <string name="ISBN_placeholder">ISBN</string>
+    <string name="release_date_label">発売日</string>
+    <string name="number_of_turns_label">巻数</string>
+    <string name="number_of_turns_placeholder">巻</string>
+    <string name="money_label">金額</string>
+    <string name="money_placeholder">円</string>
+    <string name="state_label">状態</string>
+    <string name="read_through_situation_label">読破状況</string>
+    <string name="group_label">グループ</string>
+    <string name="memo_label">メモ</string>
+    <string name="delete_btn_text">×</string>
 
     <!-- Web検索画面のコンポーネントに表示する文字列 -->
     <string name="activity_name_web_search">Web検索画面</string>

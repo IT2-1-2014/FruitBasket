@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 登録画面 状態 -->
+    <string-array name="spinner_values">
+        <item>状態０１</item>
+        <item>状態０２</item>
+        <item>状態０３</item>
+        <item>状態０４</item>
+    </string-array>
+
+</resources>

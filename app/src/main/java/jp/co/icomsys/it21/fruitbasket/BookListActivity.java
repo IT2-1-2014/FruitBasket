@@ -35,6 +35,7 @@ public class BookListActivity extends Activity
         Thread.setDefaultUncaughtExceptionHandler(new FBUncaughtExceptionHandler(context));
 
         setContentView(R.layout.activity_fbbook_list);
+        //setContentView(R.layout.activity_book_list_layout);
 
 //        mNavigationDrawerFragment = (NavigationDrawerFragment)
 //                getFragmentManager().findFragmentById(R.id.navigation_drawer);

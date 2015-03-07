@@ -11,6 +11,9 @@
     <dimen name="image_width_book">64dp</dimen>
     <dimen name="image_height_book">64dp</dimen>
 
+    <!-- 登録画面 -->
+    <dimen name="edit_lavel_text_size">12dp</dimen>
+
     <!-- 入力項目サイズ -->
     <dimen name="text_height">32dp</dimen>
 
