@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class BookRegistrationActivity extends ActionBarActivity
+public class BookListsActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -35,8 +35,7 @@ public class BookRegistrationActivity extends ActionBarActivity
         Context context = getApplicationContext();
         Thread.setDefaultUncaughtExceptionHandler(new FBUncaughtExceptionHandler(context));
 
-        //setContentView(R.layout.activity_book_registration);
-        setContentView(R.layout.activity_fbbook_registr_layout);
+        setContentView(R.layout.activity_book_list_layout);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -117,9 +116,6 @@ public class BookRegistrationActivity extends ActionBarActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public PlaceholderFragment() {
-        }
-
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -132,17 +128,20 @@ public class BookRegistrationActivity extends ActionBarActivity
             return fragment;
         }
 
+        public PlaceholderFragment() {
+        }
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_book_registration, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_fbbook_list, container, false);
             return rootView;
         }
 
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((BookRegistrationActivity) activity).onSectionAttached(
+            ((BookListsActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }

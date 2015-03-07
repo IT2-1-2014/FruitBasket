@@ -11,31 +11,32 @@
         <activity
             android:name=".BookListActivity"
             android:label="@string/activity_name_book_list">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".BookRegistrationActivity"
-            android:label="@string/activity_name_book_registration">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-
-        </activity>
-
-        <activity
-            android:name=".WebSearchActivity"
-            android:label="@string/activity_name_web_search">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".BookRegistrationActivity"
+            android:label="@string/activity_name_book_registration"></activity>
+
+        <activity
+            android:name=".WebSearchActivity"
+            android:label="@string/activity_name_web_search">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/activity_name_book_list">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
     </application>
