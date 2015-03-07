@@ -17,20 +17,17 @@ public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
 
     private final static String BUG_REPORT_FILE_NAME = "fbbugreport.txt";
 
-    private static String LOG_TAG = null;
+    private static final String LOG_TAG;
+    private static final String PACKAGE_NAME;
+
     private static Context sContext = null;
-    private static File BUG_REPORT_FILE = null;
-    private static String PACKAGE_NAME = null;
+    private File mBugReportFile = null;
 
     static {
         LOG_TAG = FBUncaughtExceptionHandler.class.getSimpleName();
         PACKAGE_NAME = FBUncaughtExceptionHandler.class.getPackage().getName();
-        String sdcard = Environment.getExternalStorageDirectory().getPath();
-        String path = sdcard + File.separator + PACKAGE_NAME + File.separator + BUG_REPORT_FILE_NAME;
-        BUG_REPORT_FILE = new File(path);
-
-        Log.v(LOG_TAG, "FilePath: " + path);
     }
+
 
     public FBUncaughtExceptionHandler(Context context) {
         sContext = context;
@@ -41,9 +38,30 @@ public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
         try {
             saveBugReport(ex);
         } catch (IOException e) {
-            e.printStackTrace();
-            Log.e(LOG_TAG, "ログ出力で例外", e);
+            Log.e(LOG_TAG, "バグレポート出力に失敗", e);
         }
+    }
+
+    /**
+     * バグレポートファイルの生成　*
+     */
+    private void prepareBugReportFile() {
+
+        if (mBugReportFile != null) return;
+
+        File dataDir = Environment.getDataDirectory();
+        mBugReportFile = new File(dataDir.getAbsolutePath() + File.separator + PACKAGE_NAME + File.separator + BUG_REPORT_FILE_NAME);
+        Log.v(LOG_TAG, "BugReportFile: " + mBugReportFile.getAbsolutePath());
+
+        try {
+            if (!mBugReportFile.exists() && !mBugReportFile.mkdirs() && mBugReportFile.createNewFile()) {
+                Log.w(LOG_TAG, "ディレクトリの生成が出来ませんでした。[" + mBugReportFile.getAbsolutePath() + "]");
+                mBugReportFile = null;
+            }
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "バグレポートファイルの生成に失敗", e);
+        }
+
     }
 
     /*
@@ -51,13 +69,17 @@ public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
      */
     private void saveBugReport(Throwable th) throws IOException {
         StackTraceElement[] stacks = th.getStackTrace();
-        File file = BUG_REPORT_FILE;
-        if (!file.exists()) {
-            file.mkdirs();
-            file.createNewFile();
+
+        // バグレポートファイル生成
+        prepareBugReportFile();
+
+        if (mBugReportFile == null) {
+            th.printStackTrace();
+            return;
         }
+
         PrintWriter pw;
-        pw = new PrintWriter(new FileOutputStream(file));
+        pw = new PrintWriter(new FileOutputStream(mBugReportFile));
 
         StringBuilder sb = new StringBuilder();
         for (StackTraceElement stack : stacks) {
