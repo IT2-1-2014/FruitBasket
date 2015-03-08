@@ -39,6 +39,7 @@ public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
             saveBugReport(ex);
         } catch (IOException e) {
             Log.e(LOG_TAG, "バグレポート出力に失敗", e);
+            Log.e(LOG_TAG, "キャッチした例外", ex);
         }
     }
 

@@ -1,5 +1,5 @@
 <resources>
-    <declare-styleable name="AutoCompleteWithClearButtonTextView">
+    <declare-styleable name="AutoCompleteWithClearButtonEditText">
         <attr name="hint" format="string" />
         <!-- 以下、自動生成もの削除可能 -->
         <attr name="exampleString" format="string" />

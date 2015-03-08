@@ -2,6 +2,7 @@ package jp.co.icomsys.it21.fruitbasket;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,10 +14,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import jp.co.icomsys.it21.fruitbasket.dao.AuthorsDao;
+import jp.co.icomsys.it21.fruitbasket.dao.BookTitles;
+import jp.co.icomsys.it21.fruitbasket.dao.BookTitlesDao;
+import jp.co.icomsys.it21.fruitbasket.dao.DaoMaster;
+import jp.co.icomsys.it21.fruitbasket.dao.DaoSession;
+import jp.co.icomsys.it21.fruitbasket.dao.PublishersDao;
+import jp.co.icomsys.it21.fruitbasket.dao.RegisteredBooksDao;
 
 
 public class BookRegistrationActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -28,13 +39,21 @@ public class BookRegistrationActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    private Button mTitleClearButton, mTitleKanaClearButton;
+    private Button mAuthorClearButton, mAuthorKanaClearButton;
+    private Button mPublisherClearButton, mPublisherKanaClearButton;
+
+    private EditText mTitleEdit, mTitleKanaEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // エラーハンドラ設定
         Context context = getApplicationContext();
         Thread.setDefaultUncaughtExceptionHandler(new FBUncaughtExceptionHandler(context));
 
+        // LayoutXMLとバインディング
         //setContentView(R.layout.activity_book_registration);
         setContentView(R.layout.activity_fbbook_registr_layout);
 
@@ -46,6 +65,26 @@ public class BookRegistrationActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        bindComponent();
+
+    }
+
+    void bindComponent() {
+        mTitleClearButton = (Button) findViewById(R.id.title_clear_button);
+        mTitleClearButton.setOnClickListener(this);
+        mTitleKanaClearButton = (Button) findViewById(R.id.title_kana_clear_button);
+        mTitleKanaClearButton.setOnClickListener(this);
+        mTitleEdit = (EditText) findViewById(R.id.title_edit);
+        mTitleEdit.setOnClickListener(this);
+        mTitleKanaEdit = (EditText) findViewById(R.id.title_kana_edit);
+        mTitleKanaEdit.setOnClickListener(this);
+
+        mAuthorClearButton = (Button) findViewById(R.id.author_clear_button);
+        mAuthorClearButton.setOnClickListener(this);
+
+        mPublisherClearButton = (Button) findViewById(R.id.publisher_clear_button);
+        mPublisherClearButton.setOnClickListener(this);
     }
 
     @Override
@@ -107,6 +146,47 @@ public class BookRegistrationActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v == mTitleClearButton) {
+            mTitleEdit.setText("");
+        } else if (v == mTitleKanaEdit) {
+            mTitleKanaEdit.setText("");
+        } else if (v == mAuthorClearButton) {
+            //　テスト
+            registrationData();
+
+        } else if (v == mPublisherClearButton) {
+            // テスト
+
+
+        }
+    }
+
+    public void registrationData() {
+        // 仮・・・
+        Context context = getApplicationContext();
+        SQLiteDatabase db = new DaoMaster.DevOpenHelper(context, "fb-db", null).getWritableDatabase();
+        DaoSession daoSession = new DaoMaster(db).newSession();
+
+        BookTitlesDao bookTitlesDao = daoSession.getBookTitlesDao();
+        AuthorsDao authorsDao = daoSession.getAuthorsDao();
+        PublishersDao publishersDao = daoSession.getPublishersDao();
+        RegisteredBooksDao regiBooksDao = daoSession.getRegisteredBooksDao();
+
+        BookTitles titleEntity = new BookTitles();
+        titleEntity.setTitle(mTitleEdit.getText().toString());
+        titleEntity.setTitleKana(mTitleKanaEdit.getText().toString());
+        long titleId = bookTitlesDao.insert(titleEntity);
+
+
+    }
+
+    public void getBookData() {
+
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -145,6 +225,8 @@ public class BookRegistrationActivity extends ActionBarActivity
             ((BookRegistrationActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+
+
     }
 
 }

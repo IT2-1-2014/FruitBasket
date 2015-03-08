@@ -37,13 +37,13 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <jp.co.icomsys.it21.fruitbasket.ui.AutoCompleteWithClearButtonTextView
+                    <jp.co.icomsys.it21.fruitbasket.ui.AutoCompleteWithClearButtonEditText
                         android:id="@+id/textView_title"
                         android:layout_width="fill_parent"
                         android:layout_height="32dp"
                         fb:hint="test" />
 
-                    <jp.co.icomsys.it21.fruitbasket.ui.AutoCompleteWithClearButtonTextView
+                    <jp.co.icomsys.it21.fruitbasket.ui.AutoCompleteWithClearButtonEditText
                         android:id="@+id/textView_title_kana"
                         android:layout_width="fill_parent"
                         android:layout_height="32dp" />
@@ -65,12 +65,12 @@
 
             </LinearLayout>
 
-            <jp.co.icomsys.it21.fruitbasket.ui.AutoCompleteWithClearButtonTextView
+            <jp.co.icomsys.it21.fruitbasket.ui.AutoCompleteWithClearButtonEditText
                 android:id="@+id/textView_author"
                 android:layout_width="fill_parent"
                 android:layout_height="32dp" />
 
-            <jp.co.icomsys.it21.fruitbasket.ui.AutoCompleteWithClearButtonTextView
+            <jp.co.icomsys.it21.fruitbasket.ui.AutoCompleteWithClearButtonEditText
                 android:id="@+id/textView_author_kana"
                 android:layout_width="fill_parent"
                 android:layout_height="32dp" />
