@@ -1,7 +1,6 @@
 package jp.co.icomsys.it21.fruitbasket;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -39,6 +38,7 @@ public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
             saveBugReport(ex);
         } catch (IOException e) {
             Log.e(LOG_TAG, "バグレポート出力に失敗", e);
+            Log.e(LOG_TAG, "キャッチした例外", ex);
         }
     }
 
@@ -49,17 +49,24 @@ public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
 
         if (mBugReportFile != null) return;
 
-        File dataDir = Environment.getDataDirectory();
-        mBugReportFile = new File(dataDir.getAbsolutePath() + File.separator + PACKAGE_NAME + File.separator + BUG_REPORT_FILE_NAME);
-        Log.v(LOG_TAG, "BugReportFile: " + mBugReportFile.getAbsolutePath());
+        File dataDir = sContext.getExternalFilesDir(null);
+
+//        mBugReportFile = new File(dataDir.getAbsolutePath() + File.separator + PACKAGE_NAME + File.separator + BUG_REPORT_FILE_NAME);
+        mBugReportFile = new File(dataDir.getPath() + File.separator + BUG_REPORT_FILE_NAME);
+        Log.v(LOG_TAG, "BugReportFile[" + mBugReportFile.getPath() + "]");
 
         try {
-            if (!mBugReportFile.exists() && !mBugReportFile.mkdirs() && mBugReportFile.createNewFile()) {
-                Log.w(LOG_TAG, "ディレクトリの生成が出来ませんでした。[" + mBugReportFile.getAbsolutePath() + "]");
-                mBugReportFile = null;
+            if (!mBugReportFile.exists()) {
+                if (!mBugReportFile.mkdirs()) {
+                    Log.w(LOG_TAG, "ディレクトリの生成が出来ませんでした。[" + mBugReportFile.getAbsolutePath() + "]");
+                    mBugReportFile = null;
+                } else if (!mBugReportFile.createNewFile()) {
+                    Log.w(LOG_TAG, "ファイルの生成が出来ませんでした。[" + mBugReportFile.getAbsolutePath() + "]");
+                    mBugReportFile = null;
+                }
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "バグレポートファイルの生成に失敗", e);
+            Log.e(LOG_TAG, "バグレポートファイルの生成に失敗[" + mBugReportFile.toString() + "]", e);
         }
 
     }
