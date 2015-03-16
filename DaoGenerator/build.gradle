@@ -1,10 +1,10 @@
-import de.greenrobot.daogenerator.DaoGenerator;
+import de.greenrobot.daogenerator.DaoGenerator
 import de.greenrobot.daogenerator.Entity
-import de.greenrobot.daogenerator.Property;
-import de.greenrobot.daogenerator.Schema;
+import de.greenrobot.daogenerator.Schema
 
 // DB Version
 def dbVersion = 1
+
 // Dao Package Name
 def daoOutputPackage = "jp.co.icomsys.it21.fruitbasket.dao"
 // Output Directory Path
@@ -30,38 +30,52 @@ task daoGenerator {
         Schema schema = new Schema(dbVersion, daoOutputPackage);
 
         Entity bookTitles = schema.addEntity("BookTitles");
-        bookTitles.addIdProperty().notNull();
+        bookTitles.addIdProperty().primaryKey().unique();
         bookTitles.addStringProperty("title").notNull();
         bookTitles.addStringProperty("titleKana").notNull();
 
         Entity authors = schema.addEntity("Authors");
-        authors.addIdProperty().notNull();
+        authors.addIdProperty().primaryKey().unique();
         authors.addStringProperty("author");
         authors.addStringProperty("authorKana");
 
         Entity publishers = schema.addEntity("Publishers");
-        publishers.addIdProperty().notNull();
+        publishers.addIdProperty().primaryKey().unique();
         publishers.addStringProperty("publisher");
         publishers.addStringProperty("publisherKana");
 
-        Entity regsisteredBooks = schema.addEntity("RegisteredBooks");
-        regsisteredBooks.addIdProperty();
+        Entity registeredBooks = schema.addEntity("RegisteredBooks");
+        registeredBooks.addIdProperty().primaryKey().unique();
 
-        Property bookTitleId = regsisteredBooks.addLongProperty("bookTitleID").getProperty();
-        regsisteredBooks.addToOne(bookTitles, bookTitleId);
+//        registeredBooks.addLongProperty("bookTitleID").getProperty();
+        registeredBooks.addStringProperty("title").notNull();
+        registeredBooks.addStringProperty("titleKana").notNull();
 
-        Property authId = regsisteredBooks.addLongProperty("authorID").getProperty();
-        regsisteredBooks.addToOne(authors, authId);
+//        Property bookTitleId = registeredBooks.addLongProperty("bookTitleID").getProperty();
+//        registeredBooks.addToOne(bookTitles, bookTitleId);
 
-        Property publisherId = regsisteredBooks.addLongProperty("publisherID").getProperty();
-        regsisteredBooks.addToOne(publishers, publisherId);
+//        registeredBooks.addLongProperty("authorID");
+        registeredBooks.addStringProperty("author");
+        registeredBooks.addStringProperty("authorKana");
 
-        regsisteredBooks.addStringProperty("modTitle");
-        regsisteredBooks.addStringProperty("modTitleKana");
-        regsisteredBooks.addStringProperty("modAuthor");
-        regsisteredBooks.addStringProperty("modAuthorKana");
-        regsisteredBooks.addStringProperty("modPublisher");
-        regsisteredBooks.addStringProperty("modPublisherKana");
+//        Property authId = registeredBooks.addLongProperty("authorID").getProperty();
+//        registeredBooks.addToOne(authors, authId);
+
+//        registeredBooks.addLongProperty("publisherID");
+        registeredBooks.addStringProperty("publisher");
+        registeredBooks.addStringProperty("publisherKana");
+
+        registeredBooks.addStringProperty("isbn");
+
+//        Property publisherId = registeredBooks.addLongProperty("publisherID").getProperty();
+//        registeredBooks.addToOne(publishers, publisherId);
+
+//        regsisteredBooks.addStringProperty("modTitle");
+//        regsisteredBooks.addStringProperty("modTitleKana");
+//        regsisteredBooks.addStringProperty("modAuthor");
+//        regsisteredBooks.addStringProperty("modAuthorKana");
+//        regsisteredBooks.addStringProperty("modPublisher");
+//        regsisteredBooks.addStringProperty("modPublisherKana");
 
 
         try {

@@ -23,7 +23,7 @@
 
         <activity
             android:name=".WebSearchActivity"
-            android:label="@string/activity_name_web_search">
+            android:label="@string/activity_name_web_search">v
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
@@ -40,5 +40,6 @@
         </activity>
 
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

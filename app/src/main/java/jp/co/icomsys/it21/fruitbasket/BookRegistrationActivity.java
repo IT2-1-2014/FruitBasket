@@ -2,13 +2,13 @@ package jp.co.icomsys.it21.fruitbasket;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,33 +17,39 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import jp.co.icomsys.it21.fruitbasket.dao.AuthorsDao;
-import jp.co.icomsys.it21.fruitbasket.dao.BookTitles;
-import jp.co.icomsys.it21.fruitbasket.dao.BookTitlesDao;
-import jp.co.icomsys.it21.fruitbasket.dao.DaoMaster;
-import jp.co.icomsys.it21.fruitbasket.dao.DaoSession;
-import jp.co.icomsys.it21.fruitbasket.dao.PublishersDao;
-import jp.co.icomsys.it21.fruitbasket.dao.RegisteredBooksDao;
+import java.util.List;
+
+import jp.co.icomsys.it21.fruitbasket.dao.RegisteredBooks;
+import jp.co.icomsys.it21.fruitbasket.database.FBDatabaseAdapter;
 
 
 public class BookRegistrationActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener {
 
     /**
+     * ログ用のタグ
+     */
+    private static final String LOG_TAG = BookRegistrationActivity.class.getSimpleName();
+    /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    private FBDatabaseAdapter mFBDB;
 
     private Button mTitleClearButton, mTitleKanaClearButton;
     private Button mAuthorClearButton, mAuthorKanaClearButton;
     private Button mPublisherClearButton, mPublisherKanaClearButton;
+    private Button mISBNClearButton;
 
     private EditText mTitleEdit, mTitleKanaEdit;
+    private EditText mAuthorEdit, mAuthorKanaEdit;
+    private EditText mPublisherEdit, mPublisherKanaEdit;
+    private EditText mISBNEdit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,8 @@ public class BookRegistrationActivity extends ActionBarActivity
         // エラーハンドラ設定
         Context context = getApplicationContext();
         Thread.setDefaultUncaughtExceptionHandler(new FBUncaughtExceptionHandler(context));
+
+        mFBDB = new FBDatabaseAdapter(context);
 
         // LayoutXMLとバインディング
         //setContentView(R.layout.activity_book_registration);
@@ -66,25 +74,46 @@ public class BookRegistrationActivity extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        bindComponent();
+        findViews();
+        setEventListener();
+
 
     }
 
-    void bindComponent() {
+    void findViews() {
+        // 書籍イメージ
+
+        // タイトル情報関連
         mTitleClearButton = (Button) findViewById(R.id.title_clear_button);
-        mTitleClearButton.setOnClickListener(this);
         mTitleKanaClearButton = (Button) findViewById(R.id.title_kana_clear_button);
-        mTitleKanaClearButton.setOnClickListener(this);
         mTitleEdit = (EditText) findViewById(R.id.title_edit);
-        mTitleEdit.setOnClickListener(this);
         mTitleKanaEdit = (EditText) findViewById(R.id.title_kana_edit);
-        mTitleKanaEdit.setOnClickListener(this);
 
+        // 著者情報関連
         mAuthorClearButton = (Button) findViewById(R.id.author_clear_button);
-        mAuthorClearButton.setOnClickListener(this);
+        mAuthorKanaClearButton = (Button) findViewById(R.id.author_kana_clear_button);
+        mAuthorEdit = (EditText) findViewById(R.id.author_edit);
+        mAuthorKanaEdit = (EditText) findViewById(R.id.author_kana_edit);
 
+        // 出版社情報
         mPublisherClearButton = (Button) findViewById(R.id.publisher_clear_button);
+        mPublisherKanaClearButton = (Button) findViewById(R.id.publisher_kana_clear_button);
+        mPublisherEdit = (EditText) findViewById(R.id.publisher_edit);
+        mPublisherKanaEdit = (EditText) findViewById(R.id.publisher_kana_edit);
+
+        // ISBNコード
+        mISBNClearButton = (Button) findViewById(R.id.isbn_clear_button);
+        mISBNEdit = (EditText) findViewById(R.id.isbn_edit);
+    }
+
+    void setEventListener() {
+        mTitleClearButton.setOnClickListener(this);
+        mTitleKanaClearButton.setOnClickListener(this);
+        mTitleEdit.setOnClickListener(this);
+        mTitleKanaEdit.setOnClickListener(this);
+        mAuthorClearButton.setOnClickListener(this);
         mPublisherClearButton.setOnClickListener(this);
+        mISBNClearButton.setOnClickListener(this);
     }
 
     @Override
@@ -153,38 +182,72 @@ public class BookRegistrationActivity extends ActionBarActivity
         } else if (v == mTitleKanaEdit) {
             mTitleKanaEdit.setText("");
         } else if (v == mAuthorClearButton) {
-            //　テスト
-            registrationData();
-
+            mAuthorEdit.setText("");
+        } else if (v == mAuthorKanaClearButton) {
+            mAuthorKanaEdit.setText("");
         } else if (v == mPublisherClearButton) {
+            mPublisherEdit.setText("");
+        } else if (v == mPublisherKanaClearButton) {
+            mPublisherKanaEdit.setText("");
+        } else if (v == mISBNClearButton) {
             // テスト
-
+            registrationData();
 
         }
     }
 
-    public void registrationData() {
-        // 仮・・・
-        Context context = getApplicationContext();
-        SQLiteDatabase db = new DaoMaster.DevOpenHelper(context, "fb-db", null).getWritableDatabase();
-        DaoSession daoSession = new DaoMaster(db).newSession();
+    private void registrationData() {
 
-        BookTitlesDao bookTitlesDao = daoSession.getBookTitlesDao();
-        AuthorsDao authorsDao = daoSession.getAuthorsDao();
-        PublishersDao publishersDao = daoSession.getPublishersDao();
-        RegisteredBooksDao regiBooksDao = daoSession.getRegisteredBooksDao();
 
-        BookTitles titleEntity = new BookTitles();
-        titleEntity.setTitle(mTitleEdit.getText().toString());
-        titleEntity.setTitleKana(mTitleKanaEdit.getText().toString());
-        long titleId = bookTitlesDao.insert(titleEntity);
+//        // 仮・・・
+//        Context context = getApplicationContext();
+//        SQLiteDatabase db = new DaoMaster.DevOpenHelper(context, "fb-db", null).getWritableDatabase();
+//        DaoSession daoSession = new DaoMaster(db).newSession();
+//
+//        BookTitlesDao bookTitlesDao = daoSession.getBookTitlesDao();
+//        AuthorsDao authorsDao = daoSession.getAuthorsDao();
+//        PublishersDao publishersDao = daoSession.getPublishersDao();
+//        RegisteredBooksDao regiBooksDao = daoSession.getRegisteredBooksDao();
 
+//        // タイトル情報
+//        BookTitles titleEntity = new BookTitles();
+//        titleEntity.setTitle(mTitleEdit.getText().toString());
+//        titleEntity.setTitleKana(mTitleKanaEdit.getText().toString());
+//
+//        // 著者情報
+//        Authors authorEntity = new Authors();
+//        authorEntity.setAuthor(mAuthorEdit.getText().toString());
+//        authorEntity.setAuthorKana(mAuthorKanaEdit.getText().toString());
+//
+//        // 出版社情報
+//        Publishers publisherEntity = new Publishers();
+//        publisherEntity.setPublisher(mPublisherEdit.getText().toString());
+//        publisherEntity.setPublisherKana(mPublisherKanaEdit.getText().toString());
+
+        // 図書登録情報
+        RegisteredBooks registeredBook = new RegisteredBooks();
+        registeredBook.setTitle(mTitleEdit.getText().toString());
+        registeredBook.setTitleKana(mTitleKanaEdit.getText().toString());
+
+        registeredBook.setAuthor(mAuthorEdit.getText().toString());
+        registeredBook.setAuthorKana(mAuthorKanaEdit.getText().toString());
+
+        registeredBook.setPublisher(mPublisherEdit.getText().toString());
+        registeredBook.setPublisherKana(mPublisherKanaEdit.getText().toString());
+
+        registeredBook.setIsbn(mISBNEdit.getText().toString());
+
+        RegisteredBooks rsltRegisteredBook = mFBDB.saveOneBook(registeredBook);
+
+        Log.v(LOG_TAG, "登録データ：" + rsltRegisteredBook.toString());
 
     }
 
-    public void getBookData() {
-
-
+    private void fetchBooks() {
+        List<RegisteredBooks> books = mFBDB.findAllRegisteredBooks();
+        for (RegisteredBooks book : books) {
+            Log.v(LOG_TAG, book.toString());
+        }
     }
 
     /**
