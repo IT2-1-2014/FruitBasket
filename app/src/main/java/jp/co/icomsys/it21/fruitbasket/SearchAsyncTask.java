@@ -39,9 +39,9 @@ public class SearchAsyncTask extends AsyncTask<Void, Void, List<BookSearchItem>>
         StringBuilder queryBuilder = new StringBuilder();
 
         String title = createSearchConditionContent(this.caller.getTitleInputStr());
-        String creator = createSearchConditionContent(this.caller.getTitleInputStr());
-        String publisher = createSearchConditionContent(this.caller.getTitleInputStr());
-        String isbn = createSearchConditionContent(this.caller.getTitleInputStr());
+        String creator = createSearchConditionContent(this.caller.getAuthorInputStr());
+        String publisher = createSearchConditionContent(this.caller.getPublisherInputStr());
+        String isbn = createSearchConditionContent(this.caller.getIsbnInputStr());
 
         try {
             if (!"".equals(title)) {

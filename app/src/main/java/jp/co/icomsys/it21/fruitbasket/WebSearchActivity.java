@@ -90,7 +90,9 @@ public class WebSearchActivity extends ActionBarActivity {
 
     public void setSearchResultList(List<BookSearchItem> results) {
         this.resultList = results;
-        this.resultAdapter.notifyDataSetChanged();
+        for (BookSearchItem i : this.resultList) {
+            this.resultAdapter.add(i);
+        }
     }
 
     public String getTitleInputStr() {

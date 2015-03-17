@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
 
-public class FBBookListActivity extends ActionBarActivity
+public class BookListActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -87,7 +87,7 @@ public class FBBookListActivity extends ActionBarActivity
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.fbbook_list, menu);
-            restoreActionBar();
+ //           restoreActionBar();
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -140,7 +140,7 @@ public class FBBookListActivity extends ActionBarActivity
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((FBBookListActivity) activity).onSectionAttached(
+            ((BookListActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
