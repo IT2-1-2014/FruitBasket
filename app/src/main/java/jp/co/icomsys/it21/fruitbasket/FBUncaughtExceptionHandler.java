@@ -56,8 +56,8 @@ public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
         Log.v(LOG_TAG, "BugReportFile[" + mBugReportFile.getPath() + "]");
 
         try {
-            if (!mBugReportFile.exists()) {
-                if (!mBugReportFile.mkdirs()) {
+            if (!dataDir.exists()) {
+                if (!dataDir.mkdirs()) {
                     Log.w(LOG_TAG, "ディレクトリの生成が出来ませんでした。[" + mBugReportFile.getAbsolutePath() + "]");
                     mBugReportFile = null;
                 } else if (!mBugReportFile.createNewFile()) {
@@ -96,7 +96,9 @@ public class FBUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
             sb.append(stack.getMethodName()).append(":");
             sb.append(stack.getLineNumber());
             pw.println(sb.toString());
+
         }
+        pw.println(th.toString());
         pw.close();
 
     }

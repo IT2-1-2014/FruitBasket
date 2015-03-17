@@ -2,6 +2,7 @@ package jp.co.icomsys.it21.fruitbasket;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -59,6 +60,7 @@ public class BookRegistrationActivity extends ActionBarActivity
         Context context = getApplicationContext();
         Thread.setDefaultUncaughtExceptionHandler(new FBUncaughtExceptionHandler(context));
 
+        // データベースアダプタ
         mFBDB = new FBDatabaseAdapter(context);
 
         // LayoutXMLとバインディング
@@ -141,7 +143,7 @@ public class BookRegistrationActivity extends ActionBarActivity
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
@@ -168,7 +170,9 @@ public class BookRegistrationActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_register) {
+            registrationData();
+            transitionActivity();
             return true;
         }
 
@@ -190,9 +194,7 @@ public class BookRegistrationActivity extends ActionBarActivity
         } else if (v == mPublisherKanaClearButton) {
             mPublisherKanaEdit.setText("");
         } else if (v == mISBNClearButton) {
-            // テスト
-            registrationData();
-
+            mISBNEdit.setText("");
         }
     }
 
@@ -249,6 +251,17 @@ public class BookRegistrationActivity extends ActionBarActivity
             Log.v(LOG_TAG, book.toString());
         }
     }
+
+    private void transitionActivity() {
+        Intent intent = new Intent(getApplication(), BookListActivity.class);
+//        Intent intent = new Intent(getApplication(), BookListsActivity.class);
+        //Intent intent = new Intent(getApplication(), BookRegistrationActivity.class);
+        //Intent intent = new Intent(getApplication(), WebSearchActivity.class);
+        startActivity(intent);
+        //SplashActivity.this.finish();
+        this.finish();
+    }
+
 
     /**
      * A placeholder fragment containing a simple view.

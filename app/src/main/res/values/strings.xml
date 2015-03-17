@@ -7,17 +7,18 @@
 
     <!-- 一覧画面 -->
     <string name="activity_name_book_list">図書一覧画面</string>
-
+    <string name="action_transition_registration">登録画面へ</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
+
     <string name="action_settings">Settings</string>
 
 
     <!-- 登録画面 -->
+    <string name="action_register">登録</string>
     <string name="activity_name_book_registration">図書登録画面</string>
     <string name="top_btn_book_reg">登録・更新</string>
     <string name="title_placeholder">図書タイトル</string>
@@ -55,5 +56,6 @@
 
     <string name="webSerch_rakuten_queryBuild_ContentWrapper">"</string>
     <string name="webSerch_rakuten_queryBuild_Spacer"> </string>
+
 
 </resources>

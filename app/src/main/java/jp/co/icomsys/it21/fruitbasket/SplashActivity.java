@@ -18,17 +18,6 @@ public class SplashActivity extends Activity {
         hdl.postDelayed(new splashHandler(), 4000);
     }
 
-    class splashHandler implements Runnable {
-        public void run() {
-            //Intent intent = new Intent(getApplication(), BookListActivity.class);
-            //Intent intent = new Intent(getApplication(), BookListsActivity.class);
-            Intent intent = new Intent(getApplication(), BookRegistrationActivity.class);
-            //Intent intent = new Intent(getApplication(), WebSearchActivity.class);
-            startActivity(intent);
-            SplashActivity.this.finish();
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -49,5 +38,16 @@ public class SplashActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    class splashHandler implements Runnable {
+        public void run() {
+            //Intent intent = new Intent(getApplication(), BookListActivity.class);
+            //Intent intent = new Intent(getApplication(), BookListsActivity.class);
+            Intent intent = new Intent(getApplication(), BookRegistrationActivity.class);
+            //Intent intent = new Intent(getApplication(), WebSearchActivity.class);
+            startActivity(intent);
+            SplashActivity.this.finish();
+        }
     }
 }
