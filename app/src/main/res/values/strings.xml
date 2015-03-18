@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- 共通 -->
+    <!-- common -->
     <string name="app_name">FruitBasket</string>
     <string name="code_name">Melon</string>
 
     <!-- 一覧画面 -->
     <string name="activity_name_book_list">図書一覧画面</string>
     <string name="action_transition_registration">登録画面へ</string>
+    <string name="action_transition_web_search">Web検索画面へ</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -38,6 +39,8 @@
     <string name="group_label">グループ</string>
     <string name="memo_label">メモ</string>
     <string name="delete_btn_text">×</string>
+    <string name="go_web_search">Web検索画面へ</string>
+    <string name="go_book_list">図書一覧画面へ</string>
 
     <!-- Web検索画面のコンポーネントに表示する文字列 -->
     <string name="activity_name_web_search">Web検索画面</string>
@@ -50,12 +53,16 @@
     <string name="title_activity_web_search">WebSearchActivity</string>
     <string name="hello_world">Hello world!</string>
 
+    <string name="radio_label_sort">ソート</string>
+    <string name="radio_label_filter">フィルタ</string>
+
     <!-- 楽天BOOKS API との通信で用いる文字列 -->
     <string name="webSerch_rakuten_conn_url_head">https://app.rakuten.co.jp/services/api/BooksBook/Search/20130522?format=xml&amp;</string>
     <string name="webSerch_rakuten_conn_url_tail">&amp;applicationId=1066904167385245120</string>
 
     <string name="webSerch_rakuten_queryBuild_ContentWrapper">"</string>
     <string name="webSerch_rakuten_queryBuild_Spacer"> </string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

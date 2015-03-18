@@ -27,6 +27,8 @@ import jp.co.icomsys.it21.fruitbasket.database.FBDatabaseAdapter;
 public class BookRegistrationActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener {
 
+    static final int GO_BOOK_LIST = 1;
+    static final int GO_WEB_SEARCH = 2;
     /**
      * ログ用のタグ
      */
@@ -40,17 +42,14 @@ public class BookRegistrationActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
     private FBDatabaseAdapter mFBDB;
-
     private Button mTitleClearButton, mTitleKanaClearButton;
     private Button mAuthorClearButton, mAuthorKanaClearButton;
     private Button mPublisherClearButton, mPublisherKanaClearButton;
     private Button mISBNClearButton;
-
     private EditText mTitleEdit, mTitleKanaEdit;
     private EditText mAuthorEdit, mAuthorKanaEdit;
     private EditText mPublisherEdit, mPublisherKanaEdit;
     private EditText mISBNEdit;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,6 @@ public class BookRegistrationActivity extends ActionBarActivity
         mFBDB = new FBDatabaseAdapter(context);
 
         // LayoutXMLとバインディング
-        //setContentView(R.layout.activity_book_registration);
         setContentView(R.layout.activity_fbbook_registr_layout);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -77,9 +75,23 @@ public class BookRegistrationActivity extends ActionBarActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         findViews();
-        setEventListener();
+        setEventListeners();
 
+        // 画面遷移で初期表示を取得
+        Intent intent = getIntent();
+        if (intent != null) {
+            BookSearchItem bookSearchItem = (BookSearchItem) intent.getSerializableExtra("jp.co.icomsys.it21.fruitbasket.BookSearchItem");
 
+            if (bookSearchItem != null) {
+                mTitleEdit.setText(bookSearchItem.getTitle());
+                mTitleKanaEdit.setText(bookSearchItem.getTitleKana());
+                mAuthorEdit.setText(bookSearchItem.getAuthor());
+                mAuthorKanaEdit.setText(bookSearchItem.getAuthorKana());
+                mPublisherEdit.setText(bookSearchItem.getPublisher());
+                mPublisherKanaEdit.setText(bookSearchItem.getPublisherKana());
+                mISBNEdit.setText(bookSearchItem.getIsbn());
+            }
+        }
     }
 
     void findViews() {
@@ -108,7 +120,7 @@ public class BookRegistrationActivity extends ActionBarActivity
         mISBNEdit = (EditText) findViewById(R.id.isbn_edit);
     }
 
-    void setEventListener() {
+    void setEventListeners() {
         mTitleClearButton.setOnClickListener(this);
         mTitleKanaClearButton.setOnClickListener(this);
         mTitleEdit.setOnClickListener(this);
@@ -130,10 +142,16 @@ public class BookRegistrationActivity extends ActionBarActivity
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                // Web検索画面へ
+                mTitle = getString(R.string.go_web_search);
+                //transitionActivity(2);
+
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                // 図書一覧画面へ
+                mTitle = getString(R.string.go_book_list);
+                //transitionActivity(1);
+
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
@@ -147,7 +165,6 @@ public class BookRegistrationActivity extends ActionBarActivity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -172,7 +189,7 @@ public class BookRegistrationActivity extends ActionBarActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_register) {
             registrationData();
-            transitionActivity();
+            transitionActivity(1);
             return true;
         }
 
@@ -252,14 +269,32 @@ public class BookRegistrationActivity extends ActionBarActivity
         }
     }
 
-    private void transitionActivity() {
-        Intent intent = new Intent(getApplication(), BookListActivity.class);
+    /**
+     * 画面遷移*
+     *
+     * @param activity
+     */
+    private void transitionActivity(int activity) {
+        Intent intent = null;
+        switch (activity) {
+            case GO_BOOK_LIST:
+                intent = new Intent(getApplicationContext(), BookListActivity.class);
+                break;
+            case GO_WEB_SEARCH:
+                intent = new Intent(getApplicationContext(), WebSearchActivity.class);
+                break;
+            default:
+//        Intent intent = new Intent(getApplication(), BookListActivity.class);
 //        Intent intent = new Intent(getApplication(), BookListsActivity.class);
-        //Intent intent = new Intent(getApplication(), BookRegistrationActivity.class);
-        //Intent intent = new Intent(getApplication(), WebSearchActivity.class);
-        startActivity(intent);
-        //SplashActivity.this.finish();
-        this.finish();
+//        Intent intent = new Intent(getApplication(), BookRegistrationActivity.class);
+//        Intent intent = new Intent(getApplication(), WebSearchActivity.class);
+                break;
+        }
+
+        if (intent != null) {
+            startActivity(intent);
+            this.finish();
+        }
     }
 
 

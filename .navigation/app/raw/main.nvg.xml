@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+    ns="http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+    <locations class="java.util.ArrayList">
+        <statePointEntry>
+            <state class="com.android.tools.idea.editors.navigation.model.ActivityState"
+                className="jp.co.icomsys.it21.fruitbasket.BookRegistrationActivity" />
+            <point x="500" y="100" />
+        </statePointEntry>
+        <statePointEntry>
+            <state class="com.android.tools.idea.editors.navigation.model.MenuState"
+                xmlResourceName="book_registration" />
+            <point x="1760" y="160" />
+        </statePointEntry>
+        <statePointEntry>
+            <state class="com.android.tools.idea.editors.navigation.model.MenuState"
+                xmlResourceName="fbbook_list" />
+            <point x="1768" y="1480" />
+        </statePointEntry>
+        <statePointEntry>
+            <state class="com.android.tools.idea.editors.navigation.model.MenuState"
+                xmlResourceName="menu_web_search" />
+            <point x="1768" y="2860" />
+        </statePointEntry>
+        <statePointEntry>
+            <state class="com.android.tools.idea.editors.navigation.model.ActivityState"
+                className="jp.co.icomsys.it21.fruitbasket.BookListActivity" />
+            <point x="500" y="1480" />
+        </statePointEntry>
+        <statePointEntry>
+            <state class="com.android.tools.idea.editors.navigation.model.ActivityState"
+                className="jp.co.icomsys.it21.fruitbasket.WebSearchActivity" />
+            <point x="500" y="2860" />
+        </statePointEntry>
+    </locations>
+</navigationModel>

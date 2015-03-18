@@ -1,6 +1,7 @@
 package jp.co.icomsys.it21.fruitbasket;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class WebSearchActivity extends ActionBarActivity {
+public class WebSearchActivity extends ActionBarActivity implements AdapterView.OnItemLongClickListener {
 
     // 各条件入力コンポーネント
     private EditText titleInput;
@@ -55,6 +57,7 @@ public class WebSearchActivity extends ActionBarActivity {
         this.resultListView = (ListView) findViewById(R.id.webSearchBookList);
         this.resultAdapter = new SearchResultAdapter(this, 0, this.resultList);
         this.resultListView.setAdapter(this.resultAdapter);
+        resultListView.setOnItemLongClickListener(this);
 
         this.searchButton = (Button) findViewById(R.id.webSearchButton);
         this.searchButton.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +93,9 @@ public class WebSearchActivity extends ActionBarActivity {
 
     public void setSearchResultList(List<BookSearchItem> results) {
         this.resultList = results;
-        this.resultAdapter.notifyDataSetChanged();
+        for (BookSearchItem i : this.resultList) {
+            this.resultAdapter.add(i);
+        }
     }
 
     public String getTitleInputStr() {
@@ -107,6 +112,17 @@ public class WebSearchActivity extends ActionBarActivity {
 
     public String getIsbnInputStr() {
         return this.isbnInput.getText().toString();
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        BookSearchItem item = (BookSearchItem) parent.getItemAtPosition(position);
+
+        Intent intent = new Intent(getApplicationContext(), BookRegistrationActivity.class);
+        intent.putExtra("jp.co.icomsys.it21.fruitbasket.BookSearchItem", item);
+        startActivity(intent);
+
+        return true;
     }
 
 

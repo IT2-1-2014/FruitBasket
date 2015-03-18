@@ -1,9 +1,11 @@
 package jp.co.icomsys.it21.fruitbasket;
 
+import java.io.Serializable;
+
 /**
  * 検索結果の図書リストのアイテム.
  */
-public class BookSearchItem {
+public class BookSearchItem implements Serializable {
 
     private String title;
 

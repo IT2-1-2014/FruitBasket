@@ -6,6 +6,11 @@
         android:showAsAction="withText"
         android:title="@string/action_transition_registration"
         tools:ignore="AppCompatResource" />
+    <item
+        android:id="@+id/action_transition_web_search"
+        android:showAsAction="withText"
+        android:title="@string/action_transition_web_search"
+        tools:ignore="AppCompatResource" />
     <!--<item-->
     <!--android:id="@+id/action_settings"-->
     <!--android:title="@string/action_settings"-->

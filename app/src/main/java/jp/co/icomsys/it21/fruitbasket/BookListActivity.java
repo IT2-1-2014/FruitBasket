@@ -5,17 +5,38 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.List;
+
+import jp.co.icomsys.it21.fruitbasket.dao.RegisteredBooks;
+import jp.co.icomsys.it21.fruitbasket.database.FBDatabaseAdapter;
 
 
-public class BookListActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class BookListActivity extends ActionBarActivity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, AdapterView.OnItemClickListener {
+    /**
+     * ログ用のタグ
+     */
+    private static final String LOG_TAG = BookListActivity.class.getSimpleName();
+
+    /**
+     * データベースアダプタ
+     */
+    private FBDatabaseAdapter mFBDB;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -27,18 +48,25 @@ public class BookListActivity extends Activity
      */
     private CharSequence mTitle;
 
+    private ListView mBookListView;
+    private List<RegisteredBooks> mBookList;
+    private BookListAdapter mBookListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fbbook_list);
 
+        // エラーハンドラ設定
         Context context = getApplicationContext();
         Thread.setDefaultUncaughtExceptionHandler(new FBUncaughtExceptionHandler(context));
 
-        setContentView(R.layout.activity_fbbook_list);
-        //setContentView(R.layout.activity_book_list_layout);
+        // データベースアダプタ
+        mFBDB = new FBDatabaseAdapter(context);
 
-//        mNavigationDrawerFragment = (NavigationDrawerFragment)
-//                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+
         mTitle = getTitle();
 
         // Set up the drawer.
@@ -46,9 +74,28 @@ public class BookListActivity extends Activity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        ActionBar mActionBar = getActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
+        findViews();
+        setEventListeners();
 
+        fetchBooks();
+
+        mBookListAdapter = new BookListAdapter(context, 0, mBookList);
+        mBookListView.setAdapter(mBookListAdapter);
+    }
+
+    private void fetchBooks() {
+        mBookList = mFBDB.findAllRegisteredBooks();
+//        for (RegisteredBooks book : books) {
+//            Log.v(LOG_TAG, book.toString());
+//        }
+    }
+
+    void findViews() {
+        mBookListView = (ListView) findViewById(R.id.book_list);
+    }
+
+    void setEventListeners() {
+        mBookListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -89,7 +136,7 @@ public class BookListActivity extends Activity
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.fbbook_list, menu);
-            restoreActionBar();
+            //           restoreActionBar();
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -101,10 +148,22 @@ public class BookListActivity extends Activity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        Intent intent;
+        if (id == R.id.action_transition_registration) {
+            intent = new Intent(getApplicationContext(), BookRegistrationActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_transition_web_search) {
+            intent = new Intent(getApplicationContext(), WebSearchActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.v(LOG_TAG, "Click #" + id);
     }
 
     /**
@@ -144,6 +203,39 @@ public class BookListActivity extends Activity
             super.onAttach(activity);
             ((BookListActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
+        }
+
+
+    }
+
+    private class BookListAdapter extends ArrayAdapter {
+        private LayoutInflater inflater;
+
+        public BookListAdapter(Context context, int textViewResourceId, List<RegisteredBooks> objects) {
+            super(context, textViewResourceId, objects);
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // positionの位置に表示する図書検索結果アイテムを取得
+            RegisteredBooks item = (RegisteredBooks) getItem(position);
+
+            if (item != null) {
+                // 検索結果1件を表す行のViewをあらたに生成(nullならば)
+                if (null == convertView) {
+                    convertView = inflater.inflate(R.layout.viewgroup_book_list_item, null);
+                }
+
+                TextView titleView = (TextView) convertView.findViewById(R.id.bookListItemTitle);
+                titleView.setText(item.getTitle());
+                TextView authorView = (TextView) convertView.findViewById(R.id.bookListItemAuthor);
+                authorView.setText(item.getAuthor());
+                TextView publisherView = (TextView) convertView.findViewById(R.id.bookListItemPublisher);
+                publisherView.setText(item.getPublisher());
+            }
+
+            return convertView;
         }
     }
 
