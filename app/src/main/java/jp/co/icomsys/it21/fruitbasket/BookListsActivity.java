@@ -13,7 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookListsActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -27,6 +33,10 @@ public class BookListsActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+
+    private List<BookSearchItem> resultList;
+    private ListView resultListView;
+    private SearchResultAdapter resultAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +55,15 @@ public class BookListsActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        this.resultList = new ArrayList<BookSearchItem>();
+        BookSearchItem bsItem = new BookSearchItem();
+        bsItem.setAuthor("author");
+        this.resultList.add(bsItem);
+        this.resultListView = (ListView) findViewById(R.id.IL_001);
+        this.resultAdapter = new SearchResultAdapter(this, 0, this.resultList);
+        this.resultListView.setAdapter(this.resultAdapter);
+
     }
 
     @Override
@@ -146,4 +165,34 @@ public class BookListsActivity extends ActionBarActivity
         }
     }
 
+    private class SearchResultAdapter extends ArrayAdapter {
+        private LayoutInflater inflater;
+
+        public SearchResultAdapter(Context context, int textViewResourceId, List<BookSearchItem> objects) {
+            super(context, textViewResourceId, objects);
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // positionの位置に表示する図書検索結果アイテムを取得
+            BookSearchItem item = (BookSearchItem) getItem(position);
+
+            if (item != null) {
+                // 検索結果1件を表す行のViewをあらたに生成(nullならば)
+                if (null == convertView) {
+                    convertView = inflater.inflate(R.layout.viewgroup_book_list_item, null);
+                }
+
+                TextView titleView = (TextView) convertView.findViewById(R.id.bookListItemTitle);
+                titleView.setText(item.getTitle());
+                TextView authorView = (TextView) convertView.findViewById(R.id.bookListItemAuthor);
+                authorView.setText(item.getAuthor());
+                TextView publisherView = (TextView) convertView.findViewById(R.id.bookListItemPublisher);
+                publisherView.setText(item.getPublisher());
+            }
+
+            return convertView;
+        }
+    }
 }

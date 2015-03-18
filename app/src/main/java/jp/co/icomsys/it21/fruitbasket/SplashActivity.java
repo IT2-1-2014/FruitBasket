@@ -21,8 +21,8 @@ public class SplashActivity extends Activity {
     class splashHandler implements Runnable {
         public void run() {
             //Intent intent = new Intent(getApplication(), BookListActivity.class);
-            //Intent intent = new Intent(getApplication(), BookListsActivity.class);
-            Intent intent = new Intent(getApplication(), BookRegistrationActivity.class);
+            Intent intent = new Intent(getApplication(), BookListsActivity.class);
+            //Intent intent = new Intent(getApplication(), BookRegistrationActivity.class);
             //Intent intent = new Intent(getApplication(), WebSearchActivity.class);
             startActivity(intent);
             SplashActivity.this.finish();
