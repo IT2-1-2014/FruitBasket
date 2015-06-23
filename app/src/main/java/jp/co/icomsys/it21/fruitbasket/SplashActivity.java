@@ -13,6 +13,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //スプラッシュ用のビューを取得
         setContentView(R.layout.activity_splash);
         Handler hdl = new Handler();
         hdl.postDelayed(new splashHandler(), 4000);
@@ -42,10 +43,10 @@ public class SplashActivity extends Activity {
 
     class splashHandler implements Runnable {
         public void run() {
-            //Intent intent = new Intent(getApplication(), BookListActivity.class);
+            Intent intent = new Intent(getApplication(), BookListActivity.class);
             //Intent intent = new Intent(getApplication(), BookListsActivity.class);
             //Intent intent = new Intent(getApplication(), BookRegistrationActivity.class);
-            Intent intent = new Intent(getApplication(), WebSearchActivity.class);
+            //Intent intent = new Intent(getApplication(), WebSearchActivity.class);
             startActivity(intent);
             SplashActivity.this.finish();
         }

@@ -7,7 +7,19 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat">
+        <!--android:name="android.support.multidex.MultiDexApplication"-->
 
+        <!--スプラッシュ画像表示のアクティビティ-->
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--スプラッシュ画像表示後に表示されるアクティビティ-->
         <activity
             android:name=".BookListActivity"
             android:label="@string/activity_name_book_list">
@@ -26,7 +38,6 @@
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
             <!--</intent-filter>-->
-
         </activity>
 
         <activity
@@ -38,14 +49,7 @@
             <!--</intent-filter>-->
         </activity>
 
-        <activity
-            android:name=".SplashActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+
 
     </application>
     <!-- Web検索のために INTERNET パーミッションを追加 -->
